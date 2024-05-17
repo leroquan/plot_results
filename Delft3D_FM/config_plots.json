@@ -1,0 +1,41 @@
+{
+  "buoyancy_flux": {
+    "working_dir" : "C:\\Users\\leroquan\\Documents\\00-Work_space\\01-Lake-Lugano_Delft3D-FM\\test_dummy\\buoyancy_flux",
+    "file_nc_his" : "None",
+    "file_nc_map" : "C:\\Users\\leroquan\\Documents\\00-Work_space\\01-Lake-Lugano_Delft3D-FM\\test_dummy\\buoyancy_flux\\dflowfm\\output\\FlowFM_map.nc",
+    "sel_slice_x" : [4000,5200],
+    "sel_slice_y" : [1000,3500],
+    "layer" : 20,
+    "crs" : null,
+    "raster_res" : 100,
+    "umag_clim" : null,
+    "scale" : 1,
+    "line_array" : [[ 0, 2100 ],[5200, 2700]]
+  },
+  "lugano_1month_sequential": {
+    "working_dir" : "C:\\Users\\leroquan\\Documents\\python\\alplakes-simulations\\runs\\eawag_delft3dflow60210142612_delft3dfm_lugano_20230201_20230301\\sequential",
+    "file_nc_his" : "None",
+    "file_nc_map" : "C:\\Users\\leroquan\\Documents\\python\\alplakes-simulations\\runs\\eawag_delft3dflow60210142612_delft3dfm_lugano_20230201_20230301\\sequential\\output\\FlowFM_map.nc",
+    "sel_slice_x" : [710000,90654],
+    "sel_slice_y" : [730000,90654],
+    "layer" : 20,
+    "crs" : null,
+    "raster_res" : 100,
+    "umag_clim" : null,
+    "scale" : 1,
+    "line_array" : [[ 710000, 94000 ],[730000, 94000]]
+  },
+  "lugano_1y_sequential": {
+    "working_dir" : "C:\\Users\\leroquan\\Documents\\python\\alplakes-simulations\\runs\\eawag_sequential_delft3dfm_lugano_20230201_20240201",
+    "file_nc_his" : "None",
+    "file_nc_map" : "C:\\Users\\leroquan\\Documents\\python\\alplakes-simulations\\runs\\eawag_sequential_delft3dfm_lugano_20230201_20240201\\output\\FlowFM_map.nc",
+    "sel_slice_x" : [710000,90654],
+    "sel_slice_y" : [730000,90654],
+    "layer" : 20,
+    "crs" : null,
+    "raster_res" : 100,
+    "umag_clim" : null,
+    "scale" : 1,
+    "line_array" : [[ 710000, 94000 ],[730000, 94000]]
+  }
+}
