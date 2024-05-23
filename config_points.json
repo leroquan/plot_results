@@ -1,0 +1,17 @@
+{
+  "lugano_melide": {
+    "lat_station_wgs84": 45.942362,
+    "long_station_wgs84": 8.955064,
+    "measure_file_path": "C:\\Users\\leroquan\\Documents\\00-Work_space\\02-Data measures lakes\\ctdmonitoringlowerlakelugano(melide)_datalakesdownload\\L2_LowerLakeLuganoMelide_19870127_120000.nc"
+  },
+  "lugano_gandria": {
+    "lat_station_wgs84": 46.015967,
+    "long_station_wgs84": 9.032652,
+    "measure_file_path": "C:\\Users\\leroquan\\Documents\\00-Work_space\\02-Data measures lakes\\ctdmonitoringupperlakelugano(gandria)_datalakesdownload\\L2_UpperLakeLugano_19870121_120000.nc"
+  },
+  "lugano_figino": {
+    "lat_station_wgs84": 45.958428,
+    "long_station_wgs84": 8.896814,
+    "measure_file_path": "C:\\Users\\leroquan\\Documents\\00-Work_space\\02-Data measures lakes\\ctdmonitoringlowerlakelugano(figino)_datalakesdownload\\L2_LowerLakeLuganoFigino_19870130_120000.nc"
+  }
+}
