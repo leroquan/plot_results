@@ -13,5 +13,35 @@
     "lat_station_wgs84": 45.958428,
     "long_station_wgs84": 8.896814,
     "measure_file_path": "C:\\Users\\leroquan\\Documents\\00-Work_space\\02-Data measures lakes\\ctdmonitoringlowerlakelugano(figino)_datalakesdownload\\L2_LowerLakeLuganoFigino_19870130_120000.nc"
+  },
+  "murten": {
+    "lat_station_wgs84": 46.934000,
+    "long_station_wgs84": 7.077000,
+    "measure_folder_name": "temperaturemonitoringlakemurten_datalakesdownload_v2"
+  },
+  "geneva_lexplore": {
+    "lat_station_wgs84": 46.500000,
+    "long_station_wgs84": 6.670000,
+    "measure_folder_name": "lexploretemperaturechain_datalakesdownload\\v2",
+    "measure_file_path": "lexploretemperaturechain_datalakesdownload\\v2\\L2_LexploreTemperatureChain_v2_20240601_000000.nc",
+    "alplakes_1d_name": "geneva.json"
+  },
+  "hallwil": {
+    "lat_station_wgs84": 47.278450,
+    "long_station_wgs84": 8.213770,
+    "measure_folder_name": "temperaturemonitoringlakehallwil_datalakesdownload"
+  },
+  "lower_zurich": {
+    "lat_station_wgs84": 47.280,
+    "long_station_wgs84": 8.596,
+    "measure_folder_name": null,
+    "measure_file_path": null,
+    "alplakes_1d_name": "lower_zurich.json"
+  },
+  "upper_zurich": {
+    "lat_station_wgs84": 47.209,
+    "long_station_wgs84": 8.831,
+    "measure_folder_name": null,
+    "alplakes_1d_name": "upper_zurich.json"
   }
 }

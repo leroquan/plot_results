@@ -1,0 +1,15 @@
+{
+  "lugano_1month_Flow": {
+    "working_dir" : "C:\\Users\\leroquan\\Documents\\00-Work_space\\01-Lake-Lugano_Delft3D-FM\\test_parallel_1m\\delft3d_flow_lugano_20230205_20230305",
+    "file_nc_his" : "None",
+    "file_nc_map" : "C:\\Users\\leroquan\\Documents\\00-Work_space\\01-Lake-Lugano_Delft3D-FM\\test_parallel_1m\\delft3d_flow_lugano_20230205_20230305\\trim-Simulation_Web.nc",
+    "sel_slice_x" : [710000,90654],
+    "sel_slice_y" : [730000,90654],
+    "layer" : 20,
+    "crs" : null,
+    "raster_res" : 100,
+    "umag_clim" : null,
+    "scale" : 1,
+    "line_array" : [[ 710000, 94000 ],[730000, 94000]]
+  }
+}
