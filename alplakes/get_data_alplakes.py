@@ -1,34 +1,30 @@
 import json
 import os
 import pandas as pd
-import requests
 
-
-def try_download(url):
-    response = requests.get(url)
-    if response.status_code != 200:
-        raise Exception(r"Didn't work, response.status_code = " + str(response.status_code) + ", url = " + url)
-
-    return response
+from utils import (download_json,
+                   open_json)
 
 
 def download_3d_timeserie_from_api(lake_name: str, start_date: str, end_date: str, depth: float, lat_wgs84: float,
-                                   lon_wgs84: float, save_file_path: str) -> None:
-    url = f"https://alplakes-api.eawag.ch/simulations/point/delft3d-flow/{lake_name}/{start_date}/{end_date}/{depth}/{lat_wgs84}/{lon_wgs84}"
-    response = try_download(url)
+                                   lon_wgs84: float) -> json:
+    url = (f"https://alplakes-api.eawag.ch/simulations/point/delft3d-flow/"
+           f"{lake_name}/"
+           f"{start_date}/"
+           f"{end_date}/"
+           f"{depth}/"
+           f"{lat_wgs84}/"
+           f"{lon_wgs84}"
+           )
+    alplakes_timeserie_data = download_json(url)
 
-    alplakes_timeserie_data = response.json()
-    os.makedirs(os.path.dirname(save_file_path), exist_ok=True)
-    with open(save_file_path, 'w') as f:
-        json.dump(alplakes_timeserie_data, f, indent=4)
+    return alplakes_timeserie_data
 
 
-def parse_json_3d_timeserie_to_df(json_file: str) -> pd.DataFrame:
-    with open(json_file) as f:
-        data = json.load(f)
+def parse_alplakes_json_3d_timeserie_to_df(json_data: json) -> pd.DataFrame:
     refactored_data = {
-        'time': data['time'],
-        'temperature': data['temperature']['data']
+        'time': json_data['time'],
+        'temperature': json_data['temperature']['data']
     }
     df_data = pd.DataFrame(refactored_data)
     df_data['time'] = pd.to_datetime(df_data['time'])
@@ -37,34 +33,35 @@ def parse_json_3d_timeserie_to_df(json_file: str) -> pd.DataFrame:
 
 
 def parse_alplakes_3d_timeserie_from_directory(json_directory_path: str) -> pd.DataFrame:
-    json_files = [os.path.join(json_directory_path, file)
+    json_files_paths = [os.path.join(json_directory_path, file)
                   for file in os.listdir(json_directory_path)
                   if file.endswith('.json')]
-
-    if not json_files:
+    if not json_files_paths:
         raise FileNotFoundError(f"No json files found in directory {json_directory_path}")
-
-    dataframes = [parse_json_3d_timeserie_to_df(json_file) for json_file in json_files]
+    dataframes = [
+        parse_alplakes_json_3d_timeserie_to_df(open_json(json_path))
+        for json_path
+        in json_files_paths
+    ]
 
     return pd.concat(dataframes)
 
 
-def download_3d_profile_from_api(lake_name: str, date_plot_profil: str, lat_wgs84: float,
-                                 lon_wgs84: float, save_file_path: str) -> None:
-    url = f"https://alplakes-api.eawag.ch/simulations/profile/delft3d-flow/{lake_name}/{date_plot_profil}/{lat_wgs84}/{lon_wgs84}"
-    response = try_download(url)
-    alplakes_profile_data = response.json()
-    os.makedirs(os.path.dirname(save_file_path), exist_ok=True)
-    with open(save_file_path, 'w') as f:
-        json.dump(alplakes_profile_data, f, indent=4)
+def get_3d_profile_from_api(lake_name: str, date_plot_profile: str, lat_wgs84: float, lon_wgs84: float) -> json:
+    url = (f"https://alplakes-api.eawag.ch/simulations/profile/delft3d-flow/"
+           f"{lake_name}/"
+           f"{date_plot_profile}/"
+           f"{lat_wgs84}/"
+           f"{lon_wgs84}")
+    alplakes_profile_data = download_json(url)
+
+    return alplakes_profile_data
 
 
-def parse_json_3d_profile_to_df(json_file: str) -> pd.DataFrame:
-    with open(json_file) as f:
-        data = json.load(f)
+def parse_json_3d_profile_to_df(json_file: json) -> pd.DataFrame:
     refactored_data = {
-        'depth': data['depth']['data'],
-        'temperature': data['temperature']['data']
+        'depth': json_file['depth']['data'],
+        'temperature': json_file['temperature']['data']
     }
 
     return pd.DataFrame(refactored_data)
