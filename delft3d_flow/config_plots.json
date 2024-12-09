@@ -11,5 +11,18 @@
     "umag_clim" : null,
     "scale" : 1,
     "line_array" : [[ 710000, 94000 ],[730000, 94000]]
+  },
+  "geneva_1month": {
+    "working_dir" : "D:\\geneva_delft3dflow",
+    "file_nc_his" : "None",
+    "file_nc_map" : "D:\\geneva_delft3dflow\\trim-Simulation_Web.nc",
+    "sel_slice_x" : [710000,90654],
+    "sel_slice_y" : [730000,90654],
+    "layer" : 0,
+    "crs" : null,
+    "raster_res" : 100,
+    "umag_clim" : null,
+    "scale" : 1,
+    "line_array" : [[ 710000, 94000 ],[730000, 94000]]
   }
 }

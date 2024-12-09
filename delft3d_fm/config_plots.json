@@ -12,6 +12,19 @@
     "scale" : 1,
     "line_array" : [[ 0, 2100 ],[5200, 2700]]
   },
+    "seiche": {
+    "working_dir" : "C:\\Users\\leroquan\\Documents\\00-Work_space\\01-Lake-Lugano_Delft3D-FM\\test_dummy\\seiche",
+    "file_nc_his" : "None",
+    "file_nc_map" : "C:\\Users\\leroquan\\Documents\\00-Work_space\\01-Lake-Lugano_Delft3D-FM\\test_dummy\\seiche\\dflowfm\\output\\FlowFM_map.nc",
+    "sel_slice_x" : [4000,5200],
+    "sel_slice_y" : [1000,3500],
+    "layer" : 20,
+    "crs" : null,
+    "raster_res" : 100,
+    "umag_clim" : null,
+    "scale" : 1,
+    "line_array" : [[ 0, 2100 ],[5200, 2700]]
+  },
   "lugano_1month_sequential": {
     "working_dir" : "C:\\Users\\leroquan\\Documents\\00-Work_space\\01-Lake-Lugano_Delft3D-FM\\test_parallel_1m\\sequential",
     "file_nc_his" : "None",
@@ -95,6 +108,19 @@
     "working_dir" : "C:\\Users\\leroquan\\Documents\\python\\alplakes-simulations\\runs\\delft3dfm_lugano_20230201_20240201_test_thickness_seq\\output",
     "file_nc_his" : "None",
     "file_nc_map" : "C:\\Users\\leroquan\\Documents\\python\\alplakes-simulations\\runs\\delft3dfm_lugano_20230201_20240201_test_thickness_seq\\output\\FlowFM_map.nc",
+    "sel_slice_x" : [710000,90654],
+    "sel_slice_y" : [730000,90654],
+    "layer" : 20,
+    "crs" : null,
+    "raster_res" : 100,
+    "umag_clim" : null,
+    "scale" : 1,
+    "line_array" : [[ 710000, 94000 ],[730000, 94000]]
+  },
+  "lugano_1d_test": {
+    "working_dir" : "C:\\Users\\leroquan\\Documents\\python\\alplakes-simulations\\runs\\eawag_delft3dflow60210142612_delft3dfm_lugano_20240801_20240802\\output",
+    "file_nc_his" : "None",
+    "file_nc_map" : "C:\\Users\\leroquan\\Documents\\python\\alplakes-simulations\\runs\\eawag_delft3dflow60210142612_delft3dfm_lugano_20240801_20240802\\output\\FlowFM_map.nc",
     "sel_slice_x" : [710000,90654],
     "sel_slice_y" : [730000,90654],
     "layer" : 20,
