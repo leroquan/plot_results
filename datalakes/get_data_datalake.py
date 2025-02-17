@@ -3,6 +3,7 @@ import os
 
 import xarray as xr
 import numpy as np
+import json
 
 from utils import try_download
 
@@ -50,26 +51,74 @@ def download_ids_files_filtered_by_dates(dataset_id: int, start_date: datetime, 
     return file_ids
 
 
-def download_data_from_datalakes_file(file_id: int) -> xr.Dataset:
-    response = try_download(f'https://api.datalakes-eawag.ch/download/{file_id}')
-    json_meas = response.json()
+def parse_from_thermochain(json_data: json):
     meas_data = xr.Dataset(
         {
-            'temp': (['depth', 'time'], np.array(json_meas['z'], dtype='float'))
+            'temp': (['depth', 'time'], np.array(json_data['z'], dtype='float'))
         },
         coords={
-            'time': np.array(json_meas['x'], dtype='datetime64[s]').astype('datetime64[ns]'),
-            'depth': -1 * np.array(json_meas['y'], dtype='float')
+            'time': np.array(json_data['x'], dtype='datetime64[s]').astype('datetime64[ns]'),
+            'depth': -1 * np.array(json_data['y'], dtype='float')
         }
     )
+
     return meas_data
 
 
-def download_data_from_datalakes_dataset(dataset_id: int, start_date: datetime, end_date: datetime) -> xr.Dataset:
+def parse_from_idronaut(json_data, depth_array: np.array):
+    temp_data = np.array(json_data['x'], dtype='float')
+    depth_data = -1 * np.array(json_data['y'], dtype='float')
+    time_data = np.array([datetime.utcfromtimestamp(json_data['M'][0])])  # Wrap in an array
+
+    # Ensure the temp_data shape matches depth x time
+    if temp_data.ndim == 1:  # If temp_data is 1D
+        temp_data = temp_data[:, np.newaxis]  # Add a second dimension for 'time'
+
+    # Build the dataset
+    raw_meas_data = xr.Dataset(
+        {
+            'temp': (['depth', 'time'], temp_data)
+        },
+        coords={
+            'time': time_data,
+            'depth': depth_data
+        }
+    )
+
+    interp_meas_data = xr.Dataset(
+        {
+            'temp': (['depth', 'time'], raw_meas_data['temp'].sel(depth=depth_array, method='nearest').values)
+        },
+        coords={
+            'time': time_data,
+            'depth': depth_array
+        }
+    )
+
+    return interp_meas_data
+
+
+def download_data_from_datalakes_file(file_id: int, dataset_type: str) -> xr.Dataset:
+    response = try_download(f'https://api.datalakes-eawag.ch/download/{file_id}')
+    json_meas = response.json()
+
+    if dataset_type == 'thermochain':
+        meas_data = parse_from_thermochain(json_meas)
+    elif dataset_type == 'idronaut':
+        depth_array = -0.1 * np.array(range(0, 600))
+        meas_data = parse_from_idronaut(json_meas, depth_array)
+    else:
+        raise ValueError(f"Couldn't recognise dataset type {dataset_type}.")
+
+    return meas_data
+
+
+def download_data_from_datalakes_dataset(dataset_id: int, start_date: datetime, end_date: datetime,
+                                         dataset_type: str = "thermochain") -> xr.Dataset:
     file_ids: list[int] = download_ids_files_filtered_by_dates(dataset_id, start_date, end_date)
     merged_ds = None
     for file_id in file_ids:
-        meas_data: xr.Dataset = download_data_from_datalakes_file(file_id)
+        meas_data: xr.Dataset = download_data_from_datalakes_file(file_id, dataset_type)
         if merged_ds is None:
             merged_ds = meas_data
         else:
