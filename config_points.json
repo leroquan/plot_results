@@ -23,8 +23,11 @@
     "lat_station_wgs84": 46.500000,
     "long_station_wgs84": 6.670000,
     "datalakes_ds_id": 448,
+    "datalakes_ds_type": "thermochain",
     "bk_measure_folder_name": "lexploretemperaturechain_datalakesdownload\\analyse",
-    "bk_alplakes_1d_name": "geneva"
+    "alplakes_1d_name": "geneva",
+    "xc_mitgcm_200m": 49850,
+    "yc_mitgcm_200m": 18100
   },
   "hallwil": {
     "lat_station_wgs84": 47.278450,
