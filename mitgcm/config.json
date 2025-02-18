@@ -4,37 +4,43 @@
         "datapath": "D:\\geneva_200m_winter2023\\results_binary",
         "gridpath": "D:\\geneva_200m_winter2023\\results_binary",
         "ref_date": "2023-12-01 0:0:0",
-        "dt": 4
+        "dt": 4,
+        "endian": "<"
       },
       "geneva_200m_summer2021":{
           "datapath": "D:\\geneva_200m_summer2021\\results_binary",
           "gridpath": "D:\\geneva_200m_summer2021\\results_binary",
           "ref_date": "2021-08-01 0:0:0",
-          "dt": 4
+          "dt": 4,
+          "endian": "<"
         },
       "new_geneva_200m":{
           "datapath": "D:\\new_geneva_200m\\results_binary",
           "gridpath": "D:\\new_geneva_200m\\grid_metadata",
           "ref_date": "2023-12-01 0:0:0",
-          "dt": 4
+          "dt": 4,
+          "endian": ">"
       },
       "geneva_200m_cal_001":{
           "datapath": "D:\\geneva_calibration\\001",
           "gridpath": "D:\\geneva_calibration\\grid_metadata",
           "ref_date": "2023-12-01 0:0:0",
-          "dt": 4
+          "dt": 4,
+          "endian": ">"
       },
       "geneva_200m_cal_002":{
           "datapath": "D:\\geneva_calibration\\002",
           "gridpath": "D:\\geneva_calibration\\grid_metadata",
           "ref_date": "2023-12-01 0:0:0",
-          "dt": 4
+          "dt": 4,
+          "endian": ">"
       },
       "geneva_200m_cal_003":{
           "datapath": "D:\\geneva_calibration\\003",
           "gridpath": "D:\\geneva_calibration\\grid_metadata",
           "ref_date": "2023-12-01 0:0:0",
-          "dt": 4
+          "dt": 4,
+          "endian": ">"
       }
   },
       "KBALL-LAKEN-L.eawag.wroot.emp-eaw.ch":{
