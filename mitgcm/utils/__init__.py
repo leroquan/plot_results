@@ -1,1 +1,0 @@
-from .threedimensionalgif import (makeanimate)
