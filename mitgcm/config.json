@@ -48,7 +48,7 @@
           "datapath": "/storage/alplakes_test/ARTFUL_project/01_2023-09-12/run",
           "gridpath": "/storage/alplakes_test/ARTFUL_project/01_2023-09-12/run",
           "ref_date": "2023-08-13 0:0:0",
-          "dt": 4
+          "dt": 4,
           "endian": ">"
       }    
   }
