@@ -34,10 +34,7 @@ def datalakes_select_profile(dataset: xr.Dataset, variable: str, given_time: dat
     return dataset[variable].sel(time=closest_time)
 
 
-def download_ids_files_filtered_by_dates(dataset_id: int, start_date: datetime, end_date: datetime) -> list[int]:
-    response = try_download(f'https://api.datalakes-eawag.ch/files?datasets_id={dataset_id}')
-    files_properties = response.json()
-
+def get_ids_files_filtered_by_dates(files_properties, start_date: datetime, end_date: datetime) -> list[int]:
     file_ids = []
     for file in files_properties:
         if file['mindatetime'] is None or file['maxdatetime'] is None:
@@ -50,6 +47,21 @@ def download_ids_files_filtered_by_dates(dataset_id: int, start_date: datetime, 
         if max_date < end_date and max_date > start_date:
             file_ids.append(file['id'])
             continue
+
+    if len(file_ids) == 0:
+        raise FileNotFoundError(f"No data between date {start_date} and {end_date} found in {files_properties}")
+
+    return file_ids
+
+
+def get_ids_files_filtered_by_datatype(files_properties: json, datatype: str) -> list[int]:
+    file_ids = []
+    for file in files_properties:
+        if file['filetype'] == datatype:
+            file_ids.append(file['id'])
+
+    if len(file_ids) == 0:
+        raise FileNotFoundError(f"No data of type {datatype} found in {files_properties}")
 
     return file_ids
 
@@ -71,7 +83,7 @@ def parse_from_thermochain(json_data: json):
 def parse_from_idronaut(json_data, depth_array: np.array):
     temp_data = np.array(json_data['x'], dtype='float')
     depth_data = -1 * np.array(json_data['y'], dtype='float')
-    time_data = np.array([datetime.utcfromtimestamp(json_data['M'][0])])  # Wrap in an array
+    json_time = np.array([datetime.utcfromtimestamp(json_data['M'][0])])  # Wrap in an array
 
     # Ensure the temp_data shape matches depth x time
     if temp_data.ndim == 1:  # If temp_data is 1D
@@ -83,7 +95,7 @@ def parse_from_idronaut(json_data, depth_array: np.array):
             'temp': (['depth', 'time'], temp_data)
         },
         coords={
-            'time': time_data,
+            'time': json_time,
             'depth': depth_data
         }
     )
@@ -93,7 +105,7 @@ def parse_from_idronaut(json_data, depth_array: np.array):
             'temp': (['depth', 'time'], raw_meas_data['temp'].sel(depth=depth_array, method='nearest').values)
         },
         coords={
-            'time': time_data,
+            'time': json_time,
             'depth': depth_array
         }
     )
@@ -101,7 +113,34 @@ def parse_from_idronaut(json_data, depth_array: np.array):
     return interp_meas_data
 
 
-def download_data_from_datalakes_file(file_id: int, dataset_type: str) -> xr.Dataset:
+def parse_from_adcp(json_data: json, depth_array: np.array):
+    json_time = np.array(json_data['x'], dtype='datetime64[s]').astype('datetime64[ns]')
+    raw_meas_data = xr.Dataset(
+        {
+            'u': (['depth', 'time'], np.array(json_data['z'], dtype='float')),
+            'v': (['depth', 'time'], np.array(json_data['z1'], dtype='float'))
+        },
+        coords={
+            'time': json_time,
+            'depth': -1 * np.array(json_data['y'], dtype='float')
+        }
+    )
+
+    interp_meas_data = xr.Dataset(
+        {
+            'u': (['depth', 'time'], raw_meas_data['u'].sel(depth=depth_array, method='nearest').values),
+            'v': (['depth', 'time'], raw_meas_data['v'].sel(depth=depth_array, method='nearest').values)
+        },
+        coords={
+            'time': json_time,
+            'depth': depth_array
+        }
+    )
+
+    return interp_meas_data
+
+
+def download_and_parse_from_json_file(file_id: int, dataset_type: str) -> xr.Dataset:
     response = try_download(f'https://api.datalakes-eawag.ch/download/{file_id}')
     json_meas = response.json()
 
@@ -110,20 +149,52 @@ def download_data_from_datalakes_file(file_id: int, dataset_type: str) -> xr.Dat
     elif dataset_type == 'idronaut':
         depth_array = -0.1 * np.array(range(0, 600))
         meas_data = parse_from_idronaut(json_meas, depth_array)
+    elif dataset_type == 'adcp_deep_velocity':
+        depth_array = -np.array(range(10, 120))
+        meas_data = parse_from_adcp(json_meas, depth_array)
+    elif dataset_type == 'adcp_near_surface_velocity':
+        depth_array = -np.arange(0, 8, 0.25)  # 0.25
+        meas_data = parse_from_adcp(json_meas, depth_array)
     else:
         raise ValueError(f"Couldn't recognise dataset type {dataset_type}.")
 
     return meas_data
 
 
+def download_and_parse_from_nc_file(file_id: int, temp_folder: str) -> xr.Dataset:
+    response = try_download(f'https://api.datalakes-eawag.ch/download/{file_id}')
+
+    temp_file_path = os.path.join(temp_folder, f"data_{file_id}.nc")
+    with open(temp_file_path, "wb") as file:
+        file.write(response.content)
+
+    meas_data = xr.open_dataset(temp_file_path, engine="netcdf4")
+
+    return meas_data[['u', 'v']]
+
+
 def download_data_from_datalakes_dataset(dataset_id: int, start_date: datetime, end_date: datetime,
-                                         dataset_type: str = "thermochain") -> xr.Dataset:
-    file_ids: list[int] = download_ids_files_filtered_by_dates(dataset_id, start_date, end_date)
-    merged_ds = None
+                                         dataset_type: str = "thermochain", datatype: str = "json",
+                                         temp_folder: str = "./temp") -> xr.Dataset:
+    response = try_download(f'https://api.datalakes-eawag.ch/files?datasets_id={dataset_id}')
+    files_properties = response.json()
+
+    file_ids: list[int] = get_ids_files_filtered_by_datatype(files_properties, datatype)
+
+    if datatype == "json":
+        ids_filtered_by_date: list[int] = get_ids_files_filtered_by_dates(files_properties, start_date, end_date)
+        file_ids = [file_id for file_id in file_ids if file_id in ids_filtered_by_date]
+
+    datasets = []
+    os.makedirs(temp_folder, exist_ok=True)
     for file_id in file_ids:
-        meas_data: xr.Dataset = download_data_from_datalakes_file(file_id, dataset_type)
-        if merged_ds is None:
-            merged_ds = meas_data
+        if datatype == "json":
+            meas_data: xr.Dataset = download_and_parse_from_json_file(file_id, dataset_type)
+        elif datatype == "nc":
+            meas_data: xr.Dataset = download_and_parse_from_nc_file(file_id, temp_folder)
         else:
-            merged_ds = xr.merge([merged_ds, meas_data])
-    return merged_ds
+            raise ValueError(f"Unrecognised datatype {datatype}. Must be either json or nc.")
+
+        datasets.append(meas_data)
+
+    return xr.merge(datasets)
