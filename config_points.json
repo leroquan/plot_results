@@ -37,7 +37,7 @@
   "lower_zurich": {
     "lat_station_wgs84": 47.280,
     "long_station_wgs84": 8.596,
-    "alplakes_1d_name": "lowerzurich"
+    "alplakes_1d_name": "lowerzurich",
     "xc_mitgcm_200m": 8178,
     "yc_mitgcm_200m": 3739
   },

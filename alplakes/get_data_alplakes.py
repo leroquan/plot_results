@@ -28,7 +28,7 @@ def download_3d_timeserie_from_api(lake_name: str, start_date: str, end_date: st
 def parse_alplakes_json_3d_timeserie_to_df(json_data: json) -> pd.DataFrame:
     refactored_data = {
         'time': json_data['time'],
-        'temperature': json_data['variables']['temperature']['data']
+        'temperature': json_data['variables']['T']['data']
     }
     df_data = pd.DataFrame(refactored_data)
     df_data['time'] = pd.to_datetime(df_data['time'])
