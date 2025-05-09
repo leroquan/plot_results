@@ -9,6 +9,24 @@ import xarray as xr
 from utils import (download_json,
                    open_json)
 
+def get_3d_profile_from_api(lake_name: str, date_plot_profile: str, lat_wgs84: float, lon_wgs84: float) -> json:
+    url = (f"https://alplakes-api.eawag.ch/simulations/profile/delft3d-flow/"
+           f"{lake_name}/"
+           f"{date_plot_profile}/"
+           f"{lat_wgs84}/"
+           f"{lon_wgs84}")
+    alplakes_profile_data = download_json(url)
+
+    return alplakes_profile_data
+
+
+def parse_json_3d_profile_to_df(json_file: json) -> pd.DataFrame:
+    refactored_data = {
+        'depth': json_file['depth']['data'],
+        'temperature': json_file['variables']['temperature']['data']
+    }
+
+    return pd.DataFrame(refactored_data)
 
 def download_3d_timeserie_from_api(lake_name: str, start_date: str, end_date: str, depth: float, lat_wgs84: float,
                                    lon_wgs84: float) -> json:
@@ -18,23 +36,32 @@ def download_3d_timeserie_from_api(lake_name: str, start_date: str, end_date: st
            f"{end_date}/"
            f"{depth}/"
            f"{lat_wgs84}/"
-           f"{lon_wgs84}"
+           f"{lon_wgs84}?variables=temperature"
            )
+    print(url)
     alplakes_timeserie_data = download_json(url)
-
     return alplakes_timeserie_data
 
 
 def parse_alplakes_json_3d_timeserie_to_df(json_data: json) -> pd.DataFrame:
     refactored_data = {
         'time': json_data['time'],
-        'temperature': json_data['variables']['T']['data']
+        'temperature': json_data['variables']['temperature']['data']
     }
     df_data = pd.DataFrame(refactored_data)
     df_data['time'] = pd.to_datetime(df_data['time'])
 
     return df_data
 
+def parse_alplakes_json_profile_to_df(json_data: json) -> pd.DataFrame:
+    refactored_data = {
+        'depth': json_data['depth']['data'],
+        'temperature': json_data['variables']['temperature']['data']
+    }
+    df_data = pd.DataFrame(refactored_data)
+    #df_data['time'] = pd.to_datetime(df_data['time'])
+
+    return df_data
 
 def parse_alplakes_3d_timeserie_from_directory(json_directory_path: str) -> pd.DataFrame:
     json_files_paths = glob.glob(os.path.join(json_directory_path, '*.json'))
