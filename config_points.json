@@ -45,5 +45,19 @@
     "lat_station_wgs84": 47.209,
     "long_station_wgs84": 8.831,
     "alplakes_1d_name": "upperzurich"
-  }
+  },
+  "mythenquai_zurich": {
+    "lat_station_wgs84": 47.357,
+    "long_station_wgs84": 8.536,
+    "alplakes_1d_name": "mythenquai",
+    "xc_mitgcm_200m": 712,
+    "yc_mitgcm_200m": 8661
+    },
+  "tiefenbrunnen_zurich": {
+    "lat_station_wgs84": 47.348,
+    "long_station_wgs84": 8.56,
+    "alplakes_1d_name": "tiefenbrunnen",
+    "xc_mitgcm_200m": 2783,
+    "yc_mitgcm_200m": 8661
+    }    
 }
