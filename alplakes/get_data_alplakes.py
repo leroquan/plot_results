@@ -65,6 +65,7 @@ def parse_alplakes_json_profile_to_df(json_data: json) -> pd.DataFrame:
 
 def parse_alplakes_3d_timeserie_from_directory(json_directory_path: str) -> pd.DataFrame:
     json_files_paths = glob.glob(os.path.join(json_directory_path, '*.json'))
+    print(json_files_paths)
     if not json_files_paths:
         raise FileNotFoundError(f"No json files found in directory {json_directory_path}")
     dataframes = [
@@ -72,7 +73,7 @@ def parse_alplakes_3d_timeserie_from_directory(json_directory_path: str) -> pd.D
         for json_path
         in json_files_paths
     ]
-
+    print(pd.concat(dataframes))
     return pd.concat(dataframes)
 
 

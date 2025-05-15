@@ -43,3 +43,4 @@ def open_mitgcm_ds_from_config(config_path, model):
     endian = mitgcm_config['endian']
 
     return mitgcm_config, open_mitgcm_ds(datapath, gridpath, ref_date, dt_mitgcm_results, endian)
+
