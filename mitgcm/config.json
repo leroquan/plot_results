@@ -1,9 +1,9 @@
 {
       "KBALL-LAKEN-L.eawag.wroot.emp-eaw.ch":{
           "test_zurich":{
-          "datapath": "/storage/alplakes_test/Soren/lake_zh/2023_2024/run",
-          "gridpath": "/storage/alplakes_test/Soren/lake_zh/2023_2024/run",
-          "ref_date": "2023-03-08 0:0:0",
+          "datapath": "/storage/alplakes_test/Soren/lake_zh/march_24/run_march_sept_100",
+          "gridpath": "/storage/alplakes_test/Soren/lake_zh/march_24/run_march_sept_100",
+          "ref_date": "2024-03-06 0:0:0",
           "dt": 32,
           "endian": ">"
       }    
