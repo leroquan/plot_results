@@ -77,8 +77,15 @@
   "gersau_luzern": {
     "lat_station_wgs84": 46.98,
     "long_station_wgs84": 8.514,
-    "alplakes_1d_name": "kb_meas",
+    "alplakes_1d_name": "gersau",
     "xc_mitgcm_100m": 17596,
     "yc_mitgcm_100m": 8285
+    },
+  "urnersee_luzern": {
+    "lat_station_wgs84": 46.93,
+    "long_station_wgs84": 8.60,
+    "alplakes_1d_name": "urnersee",
+    "xc_mitgcm_100m": 25231,
+    "yc_mitgcm_100m": 5070
     }
 }
