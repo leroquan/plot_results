@@ -5,6 +5,8 @@ import xarray as xr
 import numpy as np
 import json
 
+from collections import defaultdict
+
 import sys
 parent_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
 sys.path.append(parent_dir)
@@ -80,9 +82,27 @@ def parse_from_thermochain(json_data: json):
     return meas_data
 
 
+def handle_duplicates(json_data: json):
+    adjusted_y = []
+    seen = defaultdict(int)
+
+    for val in json_data:
+        if seen[val] == 0:
+            adjusted_y.append(val)
+        else:
+            # Add 0.01 * number of times this value has already appeared
+            adjusted_val = val + 0.01 * seen[val]
+            adjusted_y.append(adjusted_val)
+        seen[val] += 1
+
+    return adjusted_y
+
+
 def parse_from_idronaut(json_data, depth_array: np.array):
     temp_data = np.array(json_data['x'], dtype='float')
-    depth_data = -1 * np.array(json_data['y'], dtype='float')
+
+    cleaned_depth = handle_duplicates(json_data['y'])
+    depth_data = -1 * np.array(cleaned_depth, dtype='float')
     json_time = np.array([datetime.utcfromtimestamp(json_data['M'][0])])  # Wrap in an array
 
     # Ensure the temp_data shape matches depth x time
@@ -175,7 +195,7 @@ def download_and_parse_from_nc_file(file_id: int, temp_folder: str) -> xr.Datase
 
 def download_data_from_datalakes_dataset(dataset_id: int, start_date: datetime, end_date: datetime,
                                          dataset_type: str = "thermochain", datatype: str = "json",
-                                         temp_folder: str = "./temp") -> xr.Dataset:
+                                         temp_folder: str = "./temp") :
     response = try_download(f'https://api.datalakes-eawag.ch/files?datasets_id={dataset_id}')
     files_properties = response.json()
 
@@ -187,14 +207,17 @@ def download_data_from_datalakes_dataset(dataset_id: int, start_date: datetime, 
 
     datasets = []
     os.makedirs(temp_folder, exist_ok=True)
+    depth_profile = None
     for file_id in file_ids:
         if datatype == "json":
             meas_data: xr.Dataset = download_and_parse_from_json_file(file_id, dataset_type)
         elif datatype == "nc":
             meas_data: xr.Dataset = download_and_parse_from_nc_file(file_id, temp_folder)
+            depth_array = np.arange(-2.05, 7.8, 0.25)
+            meas_data = meas_data.interp(depth=depth_array)
         else:
             raise ValueError(f"Unrecognised datatype {datatype}. Must be either json or nc.")
 
         datasets.append(meas_data)
 
-    return xr.merge(datasets)
+    return (datasets, xr.merge(datasets))
