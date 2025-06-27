@@ -63,29 +63,36 @@
   "kanton_luzern": {
     "lat_station_wgs84": 47.013,
     "long_station_wgs84": 8.429,
-    "alplakes_1d_name": "kanton_meas",
+    "alplakes_1d_name": "lucernekreuztrichterandvitznauerbecken",
     "xc_mitgcm_100m": 8043,
     "yc_mitgcm_100m": 11970
     },
   "kb_luzern": {
     "lat_station_wgs84": 47.0,
     "long_station_wgs84": 8.33,
-    "alplakes_1d_name": "kb_meas",
+    "alplakes_1d_name": "lucernekreuztrichterandvitznauerbecken",
     "xc_mitgcm_100m": 3546,
     "yc_mitgcm_100m": 6454
     },
   "gersau_luzern": {
     "lat_station_wgs84": 46.98,
     "long_station_wgs84": 8.514,
-    "alplakes_1d_name": "gersau",
+    "alplakes_1d_name": "lucernegersauerandtreibbecken",
     "xc_mitgcm_100m": 17596,
     "yc_mitgcm_100m": 8285
     },
   "urnersee_luzern": {
     "lat_station_wgs84": 46.93,
     "long_station_wgs84": 8.60,
-    "alplakes_1d_name": "urnersee",
+    "alplakes_1d_name": "lucerneurnersee",
     "xc_mitgcm_100m": 25231,
     "yc_mitgcm_100m": 5070
+    },
+  "center_neuch": {
+    "lat_station_wgs84": 46.904,
+    "long_station_wgs84": 6.843,
+    "alplakes_1d_name": "ctd_neuch",
+    "xc_mitgcm_200m": 20755,
+    "yc_mitgcm_200m": 5388
     }
 }
