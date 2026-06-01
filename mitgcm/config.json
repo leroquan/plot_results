@@ -1,56 +1,92 @@
 {
   "KBSUR-LEROQU-N1":{
-      "geneva_200m_winter2023":{
-        "datapath": "D:\\geneva_200m_winter2023\\results_binary",
-        "gridpath": "D:\\geneva_200m_winter2023\\results_binary",
-        "ref_date": "2023-12-01 0:0:0",
-        "dt": 4,
-        "endian": "<"
-      },
-      "geneva_200m_summer2021":{
-          "datapath": "D:\\geneva_200m_summer2021\\results_binary",
-          "gridpath": "D:\\geneva_200m_summer2021\\results_binary",
-          "ref_date": "2021-08-01 0:0:0",
-          "dt": 4,
-          "endian": "<"
-        },
-      "new_geneva_200m":{
-          "datapath": "D:\\new_geneva_200m\\results_binary",
-          "gridpath": "D:\\new_geneva_200m\\grid_metadata",
-          "ref_date": "2023-12-01 0:0:0",
-          "dt": 4,
-          "endian": ">"
-      },
-      "geneva_200m_cal_001":{
-          "datapath": "D:\\geneva_calibration\\001",
-          "gridpath": "D:\\geneva_calibration\\grid_metadata",
-          "ref_date": "2023-12-01 0:0:0",
-          "dt": 4,
-          "endian": ">"
-      },
-      "geneva_200m_cal_002":{
-          "datapath": "D:\\geneva_calibration\\002",
-          "gridpath": "D:\\geneva_calibration\\grid_metadata",
-          "ref_date": "2023-12-01 0:0:0",
-          "dt": 4,
-          "endian": ">"
-      },
-      "geneva_200m_cal_003":{
-          "datapath": "D:\\geneva_calibration\\003",
-          "gridpath": "D:\\geneva_calibration\\grid_metadata",
-          "ref_date": "2023-12-01 0:0:0",
-          "dt": 4,
-          "endian": ">"
-      }
   },
-      "KBALL-LAKEN-L.eawag.wroot.emp-eaw.ch":{
-          "geneva_artful_01":{
-          "datapath": "/storage/alplakes_test/ARTFUL_project/01_2023-09-12/run",
-          "gridpath": "/storage/alplakes_test/ARTFUL_project/01_2023-09-12/run",
-          "cropped_nc_folder": "/storage/alplakes_test/ARTFUL_project/01_2023-09-12/cropped_nc_results",
-          "ref_date": "2023-08-13 0:0:0",
-          "dt": 4,
-          "endian": ">"
-      }    
+  "KBALL-LAKEN-L.eawag.wroot.emp-eaw.ch":{
+    "geneva_dummy_7ms": {
+      "datapath": "/home/leroquan@eawag.wroot.emp-eaw.ch/work_space/dummy_7ms/run",
+      "gridpath": "/home/leroquan@eawag.wroot.emp-eaw.ch/work_space/dummy_7ms/run",
+      "ref_date": "2025-07-01 0:0:0",
+      "dt": 15,
+      "endian": ">"
+    },
+    "dummy_geneva": {
+      "datapath": "/storage/alplakes_test/dummy_geneva/outputs",
+      "gridpath": "/home/leroquan@eawag.wroot.emp-eaw.ch/work_space/dummy_geneva/run",
+      "ref_date": "2025-07-01 0:0:0",
+      "dt": 15,
+      "endian": ">"
+    },
+    "neuchatel_2024":{
+        "datapath": "/storage/alplakes_test/neuchatel_2024/run_01",
+        "gridpath": "/home/leroquan@eawag.wroot.emp-eaw.ch/work_space/neuchatel_2024/run",
+        "cropped_nc_folder": "",
+        "ref_date": "2024-01-01 0:0:0",
+        "dt": 15,
+        "endian": ">",
+        "rotation_in_degrees":40
+    },
+    "geneva_2025":{
+        "datapath": "/storage/alplakes_test/geneva_200m_2025_rivers/run",
+        "gridpath": "/home/leroquan@eawag.wroot.emp-eaw.ch/work_space/geneva_200m_2025/run",
+        "cropped_nc_folder": "",
+        "ref_date": "2025-01-01 0:0:0",
+        "dt": 15,
+        "endian": ">",
+        "rotation_in_degrees":19.4115
+    },
+    "lucerne_2025_without_rivers":{
+        "datapath": "/storage/alplakes_test/lucerne_2025_without_rivers/run",
+        "gridpath": "/storage/alplakes_test/lucerne_2025_without_rivers/metadata",
+        "cropped_nc_folder": "",
+        "ref_date": "2025-01-01 0:0:0",
+        "dt": 25,
+        "endian": ">",
+        "rotation_in_degrees":-16.26
+    },
+    "lucerne_100m_2025":{
+        "datapath": "/storage/alplakes_test/lucerne_100m_2025/outputs",
+        "gridpath": "/storage/alplakes_test/lucerne_100m_2025/grid_metadata",
+        "cropped_nc_folder": "",
+        "ref_date": "2025-01-01 0:0:0",
+        "dt": 25,
+        "endian": ">",
+        "rotation_in_degrees":-16.26
+    },
+    "geneva_100m_2025":{
+        "datapath": "/storage/alplakes_test/geneva_100m_2025/outputs",
+        "gridpath": "/storage/alplakes_test/geneva_100m_2025/grid_metadata",
+        "cropped_nc_folder": "",
+        "ref_date": "2025-01-01 0:0:0",
+        "dt": 10,
+        "endian": ">",
+        "rotation_in_degrees":19.4115
+    },
+    "neuchatel_100m_2025":{
+        "datapath": "/storage/alplakes_test/neuchatel_100m_2025/outputs",
+        "gridpath": "/storage/alplakes_test/neuchatel_100m_2025/grid_metadata",
+        "cropped_nc_folder": "",
+        "ref_date": "2025-01-01 0:0:0",
+        "dt": 7,
+        "endian": ">",
+        "rotation_in_degrees":40
+    },
+    "neuchatel_200m_2024":{
+        "datapath": "/storage/alplakes_test/neuchatel_200m_2024/outputs",
+        "gridpath": "/storage/alplakes_test/neuchatel_200m_2024/grid_metadata",
+        "cropped_nc_folder": "",
+        "ref_date": "2024-01-01 0:0:0",
+        "dt": 15,
+        "endian": ">",
+        "rotation_in_degrees":40
+    },
+    "zug_100m_2025":{
+        "datapath": "/storage/alplakes_test/zug_100m_2025/outputs",
+        "gridpath": "/storage/alplakes_test/zug_100m_2025/grid_metadata",
+        "cropped_nc_folder": "",
+        "ref_date": "2025-01-01 0:0:0",
+        "dt": 15,
+        "endian": ">",
+        "rotation_in_degrees":40
+    }
   }
 }

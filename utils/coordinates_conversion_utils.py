@@ -1,7 +1,7 @@
 import numpy as np
+from pyproj import Transformer
 
-
-def translate_grid_to_origin(x: np.ndarray, y: np.ndarray, dx: float, dy: float) -> (np.ndarray, np.ndarray):
+def translate_grid(x: np.ndarray, y: np.ndarray, dx: float, dy: float) -> (np.ndarray, np.ndarray):
     trans_x = x + dx
     trans_y = y + dy
 
@@ -15,12 +15,39 @@ def get_grid_angle(x0: float, y0: float, x1: float, y1: float) -> float:
 
 
 def rotate_grid(x: np.ndarray, y: np.ndarray, x0: float, y0: float, rotation_angle: float) -> (np.ndarray, np.ndarray):
-    x_translated_to_zero, y_translated_to_zero = translate_grid_to_origin(x, y, -x0, -y0)
+    x_translated_to_zero, y_translated_to_zero = translate_grid(x, y, -x0, -y0)
 
     x_rotated = np.cos(rotation_angle) * x_translated_to_zero - np.sin(rotation_angle) * y_translated_to_zero
     y_rotated = np.sin(rotation_angle) * x_translated_to_zero + np.cos(rotation_angle) * y_translated_to_zero
 
-    x_translated_back, y_translated_back = translate_grid_to_origin(x_rotated, y_rotated, x0, y0)
+    x_translated_back, y_translated_back = translate_grid(x_rotated, y_rotated, x0, y0)
 
     return x_translated_back, y_translated_back
 
+
+def convert_point_coord_to_mitgcm_coord(x_point, y_point, point_epsg_projection, grid_x0_epsg2056, grid_y0_epsg2056, grid_resolution, grid_rotation):
+
+    (x0, y0) = (grid_x0_epsg2056, grid_y0_epsg2056)
+    rot_angle_in_radian = np.deg2rad(grid_rotation)
+
+    point_coord_converter = Transformer.from_crs(f"EPSG:{point_epsg_projection}", f"EPSG:2056", always_xy=True)
+    x,y = point_coord_converter.transform(x_point,y_point)
+
+    x_trans, y_trans = translate_grid(x, y, -x0, -y0)
+    x_mitgcm, y_mitgcm = rotate_grid(x_trans, y_trans, grid_resolution/2, grid_resolution/2, -rot_angle_in_radian)
+
+    return x_mitgcm, y_mitgcm
+
+
+def convert_mitgcm_to_epsg_coord(x_point, y_point, output_epsg_projection, grid_x0_epsg2056, grid_y0_epsg2056, grid_resolution, grid_rotation):
+
+    (x0, y0) = (grid_x0_epsg2056, grid_y0_epsg2056)
+    rot_angle_in_radian = np.deg2rad(grid_rotation)
+
+    x_rot, y_rot = rotate_grid(x_point, y_point, grid_resolution/2, grid_resolution/2, rot_angle_in_radian)
+    x_epsg2056, y_epsg2056 = translate_grid(x_rot, y_rot, x0, y0)
+
+    point_coord_converter = Transformer.from_crs(f"EPSG:2056", f"EPSG:{output_epsg_projection}", always_xy=True)
+    x,y = point_coord_converter.transform(x_epsg2056,y_epsg2056)
+
+    return x, y

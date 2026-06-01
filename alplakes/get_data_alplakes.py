@@ -69,6 +69,18 @@ def parse_json_3d_profile_to_df(json_file: json) -> pd.DataFrame:
     return pd.DataFrame(refactored_data)
 
 
+def download_1d_depthtime_from_api(lake_name: str, start_date: str, end_date: str) -> json:
+    url = (f"https://alplakes-api.eawag.ch/simulations/1d/depthtime/simstrat/"
+           f"{lake_name}/"
+           f"{start_date}/"
+           f"{end_date}"
+           f"?variables=T"
+           )
+    alplakes_depthtime_data = download_json(url)
+
+    return alplakes_depthtime_data
+
+
 def parse_json_1d_timeserie_to_df(json_file: str) -> pd.DataFrame:
     with open(json_file) as f:
         data = json.load(f)
@@ -131,4 +143,6 @@ def parse_alplakes_1d_from_directory(folder_path: str) -> xr.Dataset:
         }
     )
 
-    return simstrat_data
+    unique_values, unique_ind = np.unique(simstrat_data['time'].values, return_index=True)
+
+    return simstrat_data.isel(time=np.sort(unique_ind))

@@ -26,8 +26,8 @@
     "datalakes_ds_type": "thermochain",
     "bk_measure_folder_name": "lexploretemperaturechain_datalakesdownload\\analyse",
     "alplakes_1d_name": "geneva",
-    "xc_mitgcm_200m": 49850,
-    "yc_mitgcm_200m": 18100
+    "xc_mitgcm": 49850,
+    "yc_mitgcm": 18100
   },
   "hallwil": {
     "lat_station_wgs84": 47.278450,
@@ -43,5 +43,17 @@
     "lat_station_wgs84": 47.209,
     "long_station_wgs84": 8.831,
     "alplakes_1d_name": "upperzurich"
+  },
+  "lucerne_plane_crash": {
+    "xc_mitgcm": 7232,
+    "yc_mitgcm": 8776
+  },
+  "lucerne_walter": {
+    "xc_mitgcm": 10679.05,
+    "yc_mitgcm": 9989.7777
+  },
+  "neuchatel_ctd_canton": {
+    "xc_mitgcm": 20476.97561748123,
+    "yc_mitgcm": 4929.721502588825
   }
 }
