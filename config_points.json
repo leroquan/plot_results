@@ -43,5 +43,24 @@
     "lat_station_wgs84": 47.209,
     "long_station_wgs84": 8.831,
     "alplakes_1d_name": "upperzurich"
+  },
+  "tiefenbrunnen_zurich": {
+    "lat_station_wgs84": 47.348,
+    "long_station_wgs84": 8.56,
+    "xc_mitgcm_200m": 2783,
+    "yc_mitgcm_200m": 8661
+  },
+  "mythenquai_zurich": {
+    "lat_station_wgs84": 47.357,
+    "long_station_wgs84": 8.536,
+    "xc_mitgcm_200m": 805,
+    "yc_mitgcm_200m": 8761
+  },
+  "lucerne_walter": {
+    "lat_station_wgs84": 47.011539,
+    "long_station_wgs84": 8.433513,
+    "xc_mitgcm_200m": 10679.05,
+    "yc_mitgcm_200m": 9989.7777,
+    "alplakes_1d_name": "lucernekreuztrichterandvitznauerbecken"
   }
 }

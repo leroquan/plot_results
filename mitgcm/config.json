@@ -21,11 +21,11 @@
           "dt": 4,
           "endian": ">"
       },
-      "geneva_200m_cal_001":{
-          "datapath": "D:\\geneva_calibration\\001",
-          "gridpath": "D:\\geneva_calibration\\grid_metadata",
-          "ref_date": "2023-12-01 0:0:0",
-          "dt": 4,
+      "geneva_200m_secchi_half":{
+          "datapath": "D:\\geneva_200m_secchi_half\\run",
+          "gridpath": "D:\\geneva_200m_secchi_half\\run",
+          "ref_date": "2024-03-01 0:0:0",
+          "dt": 32,
           "endian": ">"
       },
       "geneva_200m_cal_002":{
@@ -36,20 +36,76 @@
           "endian": ">"
       },
       "geneva_200m_cal_003":{
-          "datapath": "D:\\geneva_calibration\\003",
-          "gridpath": "D:\\geneva_calibration\\grid_metadata",
+          "datapath": "D:\\01-Geneva calibration\\geneva_calibration\\003",
+          "gridpath": "D:\\01-Geneva calibration\\geneva_calibration\\grid_metadata",
           "ref_date": "2023-12-01 0:0:0",
           "dt": 4,
           "endian": ">"
+      },
+      "geneva_200m_dalton":{
+          "datapath": "D:\\01-Geneva calibration\\geneva_200m_dalton\\run",
+          "gridpath": "D:\\01-Geneva calibration\\geneva_200m_dalton\\grid_metadata",
+          "ref_date": "2024-03-01 0:0:0",
+          "dt": 32,
+          "endian": ">"
+      },
+      "geneva_1000m":{
+          "datapath": "D:\\01-Geneva calibration\\geneva_1000m\\run",
+          "gridpath": "D:\\01-Geneva calibration\\geneva_1000m\\run",
+          "ref_date": "2024-04-01 0:0:0",
+          "dt": 4,
+          "endian": ">"
+      },
+      "geneva_heat_fluxes":{
+          "datapath": "D:\\01-Geneva calibration\\geneva_heat_fluxes\\binary_results",
+          "gridpath": "D:\\01-Geneva calibration\\geneva_heat_fluxes\\grid_metadata",
+          "ref_date": "2024-06-01 0:0:0",
+          "dt": 60,
+          "endian": ">"
+      },
+      "geneva_lw_corr":{
+          "datapath": "D:\\01-Geneva calibration\\geneva_lw_corr\\binary_results",
+          "gridpath": "D:\\01-Geneva calibration\\geneva_lw_corr\\grid_metadata",
+          "ref_date": "2024-03-01 0:0:0",
+          "dt": 32,
+          "endian": ">"
+      },
+      "geneva_2025":{
+          "datapath": "E:\\05-Finale runs\\geneva_100m\\bin_sample",
+          "gridpath": "E:\\05-Finale runs\\geneva_100m\\grid_metadata",
+          "ref_date": "2025-05-01 0:0:0",
+          "dt": 10,
+          "endian": ">"
+      },
+      "geneva_1000m_2024":{
+          "datapath": "D:\\01-Geneva calibration\\geneva_1000m_2024\\run",
+          "gridpath": "D:\\01-Geneva calibration\\geneva_1000m_2024\\metadata",
+          "ref_date": "2024-05-01 0:0:0",
+          "dt": 64,
+          "endian": ">"
+      },
+      "zurich_2025":{
+          "datapath": "D:\\zurich_2025\\dift0_dividedBy10\\run",
+          "gridpath": "D:\\zurich_2025\\metadata",
+          "ref_date": "2025-03-01 0:0:0",
+          "dt": 32,
+          "endian": ">"
+      },
+      "geneva_2026":{
+          "datapath": "E:\\06-Madeline field trip\\20260127",
+          "gridpath": "E:\\06-Madeline field trip\\20260127\\grid_metadata",
+          "ref_date": "2026-01-01 0:0:0",
+          "dt": 10,
+          "endian": ">"
       }
   },
-      "KBALL-LAKEN-L.eawag.wroot.emp-eaw.ch":{
-          "geneva_artful_01":{
+  "KBALL-LAKEN-L.eawag.wroot.emp-eaw.ch":{
+      "geneva_artful_01":{
           "datapath": "/storage/alplakes_test/ARTFUL_project/01_2023-09-12/run",
           "gridpath": "/storage/alplakes_test/ARTFUL_project/01_2023-09-12/run",
           "ref_date": "2023-08-13 0:0:0",
           "dt": 4,
           "endian": ">"
-      }    
+      }
   }
 }

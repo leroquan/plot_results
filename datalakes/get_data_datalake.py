@@ -195,7 +195,7 @@ def download_and_parse_from_nc_file(file_id: int, temp_folder: str) -> xr.Datase
 
 def download_data_from_datalakes_dataset(dataset_id: int, start_date: datetime, end_date: datetime,
                                          dataset_type: str = "thermochain", datatype: str = "json",
-                                         temp_folder: str = "./temp") :
+                                         temp_folder: str = "./temp", max_depth: int = None) :
     response = try_download(f'https://api.datalakes-eawag.ch/files?datasets_id={dataset_id}')
     files_properties = response.json()
 
@@ -213,8 +213,14 @@ def download_data_from_datalakes_dataset(dataset_id: int, start_date: datetime, 
             meas_data: xr.Dataset = download_and_parse_from_json_file(file_id, dataset_type)
         elif datatype == "nc":
             meas_data: xr.Dataset = download_and_parse_from_nc_file(file_id, temp_folder)
-            depth_array = np.arange(-2.05, 7.8, 0.25)
-            meas_data = meas_data.interp(depth=depth_array)
+            if max_depth is not None:
+                interv=2
+                if max_depth < 10:
+                    interv = 0.25
+                elif max_depth < 50:
+                    interv = 1
+                depth_array = np.arange(0, max_depth, interv)
+                meas_data = meas_data.interp(depth=depth_array)
         else:
             raise ValueError(f"Unrecognised datatype {datatype}. Must be either json or nc.")
 
